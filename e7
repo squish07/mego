@@ -1,0 +1,63 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data = np.array([65, 70, 72, 68, 75, 80, 74, 69, 77, 71])
+
+sample_mean = np.mean(data)
+print("Original Sample:", data)
+print("Sample Mean:", sample_mean)
+
+n_bootstrap = 10000
+bootstrap_means = []
+
+for i in range(n_bootstrap):
+    bootstrap_sample = np.random.choice(
+        data,
+        size=len(data),
+        replace=True
+    )
+    bootstrap_mean = np.mean(bootstrap_sample)
+    bootstrap_means.append(bootstrap_mean)
+
+bootstrap_means = np.array(bootstrap_means)
+
+standard_error = np.std(bootstrap_means)
+
+lower = np.percentile(bootstrap_means, 2.5)
+upper = np.percentile(bootstrap_means, 97.5)
+
+print("\nBootstrap Results")
+print("-----------------")
+print("Bootstrap Standard Error:", standard_error)
+print("95% Confidence Interval:", (lower, upper))
+
+plt.figure(figsize=(10, 6))
+plt.hist(bootstrap_means, bins=40)
+
+plt.axvline(
+    sample_mean,
+    linestyle='--',
+    linewidth=2,
+    label='Original Mean'
+)
+
+plt.axvline(
+    lower,
+    linestyle='--',
+    linewidth=2,
+    label='Lower 95% CI'
+)
+
+plt.axvline(
+    upper,
+    linestyle='--',
+    linewidth=2,
+    label='Upper 95% CI'
+)
+
+plt.xlabel("Bootstrap Sample Mean")
+plt.ylabel("Frequency")
+plt.title("Bootstrap Distribution of Sample Mean")
+
+plt.legend()
+plt.show()
