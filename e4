@@ -1,0 +1,32 @@
+import numpy as np
+from scipy.stats import f_oneway, kruskal
+
+group1 = [78, 82, 85, 90, 88]
+group2 = [65, 70, 72, 68, 66]
+group3 = [90, 92, 95, 94, 91]
+
+f_stat, p_value = f_oneway(group1, group2, group3)
+
+print("===== ONE WAY ANOVA =====")
+print("F Statistic :", round(f_stat, 4))
+print("P Value :", round(p_value, 4))
+
+if p_value < 0.05:
+    print("Reject Null Hypothesis")
+    print("Means are significantly different")
+else:
+    print("Fail to Reject Null Hypothesis")
+    print("Means are similar")
+
+h_stat, p_value = kruskal(group1, group2, group3)
+
+print("\n===== KRUSKAL-WALLIS TEST =====")
+print("H Statistic :", round(h_stat, 4))
+print("P Value :", round(p_value, 4))
+
+if p_value < 0.05:
+    print("Reject Null Hypothesis")
+    print("Groups differ significantly")
+else:
+    print("Fail to Reject Null Hypothesis")
+    print("No significant difference")
