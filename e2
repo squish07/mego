@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+normal_data = np.random.normal(loc=50, scale=10, size=1000)
+binomial_data = np.random.binomial(n=10, p=0.5, size=1000)
+poisson_data = np.random.poisson(lam=5, size=1000)
+
+plt.figure(figsize=(6,4))
+sns.histplot(normal_data, kde=True)
+plt.title("Normal Distribution")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.histplot(binomial_data, bins=11)
+plt.title("Binomial Distribution")
+plt.xlabel("Number of Successes")
+plt.ylabel("Frequency")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.histplot(poisson_data)
+plt.title("Poisson Distribution")
+plt.xlabel("Events")
+plt.ylabel("Frequency")
+plt.show()
